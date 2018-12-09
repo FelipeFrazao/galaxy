@@ -1,3 +1,6 @@
+import uuid
+
+
 class Planet(object):
     def __init__(self, name: str, climate: str, terrain: str, apparitions=None, population=None):
         """
@@ -8,7 +11,7 @@ class Planet(object):
         :param apparitions: (str) Planet's apparitions in films
         :param population: (str) Planet's population
         """
-
+        self._id = uuid.uuid4()
         self.name = name
         self.climate = climate
         self.terrain = terrain
@@ -20,6 +23,7 @@ class Planet(object):
         :return: dict
         """
         return {
+            "id": self._id,
             "name": self.name,
             "climate": self.climate,
             "terrain": self.terrain,
@@ -27,7 +31,7 @@ class Planet(object):
             "population": self.population,
         }
 
-    def add_outhers_info(self, apparitions: str = None, population: str = None):
+    def add_outhers_infos(self, apparitions: str, population: str):
         """
 
         :param apparitions:

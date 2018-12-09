@@ -2,7 +2,6 @@ import os
 
 from flask_testing import TestCase
 from unittest import mock
-# from unittest.mock import patch
 
 from app import app
 from galaxy.services.SwApiService import SwApiService
