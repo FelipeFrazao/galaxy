@@ -1,0 +1,17 @@
+coverage
+nose
+nose-watch
+flake8
+pep8
+autopep8
+pylint==1.7.4
+pylint-flask
+Flask-Testing
+blinker
+jsonschema
+pytest
+pytest-cov
+requests_mock
+black
+freezegun==0.3.10
+flask-script
