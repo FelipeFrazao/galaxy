@@ -4,7 +4,7 @@ from flask_testing import TestCase
 from unittest import mock
 
 from app import app
-from galaxy.services.SwApiService import SwApiService
+from galaxy.services.sw_api_service import SwApiService
 
 
 class TestUnitSwApiService(TestCase):

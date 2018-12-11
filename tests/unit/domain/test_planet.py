@@ -9,22 +9,22 @@ class TestPlanetModel(TestCase):
 
     def create_app(self):
         app.config['TESTING'] = True
-        self.planet = Planet("Test Planet", "tropical", "jungle")
+        self.planet = Planet("Test Planet", ["tropical"], ["jungle"])
         self.uid = str(uuid.uuid4())
         self.planet._id = self.uid
         return app
 
     def test_planet_model_init(self):
         self.assertEqual(self.planet.name, "Test Planet")
-        self.assertEqual(self.planet.climate, "tropical")
-        self.assertEqual(self.planet.terrain, "jungle")
+        self.assertEqual(self.planet.climate, ["tropical"])
+        self.assertEqual(self.planet.terrain, ["jungle"])
 
     def test_planet_model_to_dict(self):
         dict_planet = {
-            "id": self.uid,
+            "_id": self.uid,
             "name": "Test Planet",
-            "climate": "tropical",
-            "terrain": "jungle",
+            "climate": ["tropical"],
+            "terrain": ["jungle"],
             "apparitions": None,
             "population": None,
         }
