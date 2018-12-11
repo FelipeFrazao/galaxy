@@ -15,3 +15,4 @@ requests_mock
 black
 freezegun==0.3.10
 flask-script
+mongomock
