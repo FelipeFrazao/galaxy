@@ -47,21 +47,13 @@ class TestPlaneyRespository(TestCase):
             apparitions=None,
             population=None,
         )]
-        # print(planets[0].to_dict())
-        # print(len(planets))
-        # print(len(planets_exp))
         difference = list(set(planets) - set(planets_exp))
-        # print(difference[0].to_dict())
         self.assertEqual(len(difference), 0)
 
     @patch.object(PlanetRepository, "get_planet_list", return_value=list_planet_expected)
     def test_get_planet_list(self, mock_planets):
         planets = self.planet_repo.get_planet_list()
 
-        # print(planets)
-        # print(list_planet_expected)
-        # # planets_exp = [planet1, planet2, planet3, planet4]
-        # print(list(set(planets).intersection(list_planet_expected)))
         difference = list(set(planets) - set(list_planet_expected))
         mock_planets.assert_called_once_with()
         self.assertEqual(len(difference), 0)
