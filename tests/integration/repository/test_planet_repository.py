@@ -1,7 +1,14 @@
 from flask_testing import TestCase
 from app import app
+from unittest.mock import patch
 from galaxy.domain.planet import Planet
 from galaxy.repository.planet_repository import PlanetRepository
+
+planet1 = Planet("Test Planet", ["tropical", "ice"], ["jungle"])
+planet2 = Planet("Test Planet 1", ["tropical", "arid"], ["ocean"])
+planet3 = Planet("Test Planet 2", ["arid"], ["temperate"])
+planet4 = Planet("Test Planet 3", ["hell"], ["rainforests"])
+list_planet_expected = [planet1, planet2, planet3, planet4]
 
 
 class TestPlaneyRespository(TestCase):
@@ -17,6 +24,8 @@ class TestPlaneyRespository(TestCase):
             name="Yavin IV",
             climate=["temperate", "tropical"],
             terrain=["jungle", "rainforests"],
+            apparitions=None,
+            population=None,
         )
 
     def test_get_planet_by_id(self):
@@ -29,4 +38,30 @@ class TestPlaneyRespository(TestCase):
         self.assertEqual(planet.population, self.planet_expected.population)
 
     def test_get_planet_by_name(self):
-        self.assertEqual(self.planet_repo.get_planet_by_name("Yavin IV"), [self.planet_expected])
+        planets = self.planet_repo.get_planet_by_name("Yavin IV")
+        planets_exp = [Planet(
+            _id="80884966-d276-4066-9f6c-718ce2ffc11e",
+            name="Yavin IV",
+            climate=["temperate", "tropical"],
+            terrain=["jungle", "rainforests"],
+            apparitions=None,
+            population=None,
+        )]
+        # print(planets[0].to_dict())
+        # print(len(planets))
+        # print(len(planets_exp))
+        difference = list(set(planets) - set(planets_exp))
+        # print(difference[0].to_dict())
+        self.assertEqual(len(difference), 0)
+
+    @patch.object(PlanetRepository, "get_planet_list", return_value=list_planet_expected)
+    def test_get_planet_list(self, mock_planets):
+        planets = self.planet_repo.get_planet_list()
+
+        # print(planets)
+        # print(list_planet_expected)
+        # # planets_exp = [planet1, planet2, planet3, planet4]
+        # print(list(set(planets).intersection(list_planet_expected)))
+        difference = list(set(planets) - set(list_planet_expected))
+        mock_planets.assert_called_once_with()
+        self.assertEqual(len(difference), 0)

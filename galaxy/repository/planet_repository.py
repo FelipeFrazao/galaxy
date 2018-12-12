@@ -1,4 +1,3 @@
-
 # from repository import
 from galaxy.domain.planet import Planet
 from galaxy.repository.mongo_repository import MongoRepository
@@ -17,11 +16,13 @@ class PlanetRepository(Repository):
         return planet
 
     def get_planet_list(self):
-        pass
+        planets = self.mongo_client.planets_collection.find()
+        return [Planet.from_dict(planet) for planet in planets]
 
     def get_planet_by_name(self, name):
-        pass
+        planets = self.mongo_client.planets_collection.find({"name": name})
+        print(list(planets))
+        return [Planet.from_dict(planet) for planet in planets]
 
     def delete_planet(self, id):
         pass
-
