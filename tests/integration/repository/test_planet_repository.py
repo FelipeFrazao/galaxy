@@ -57,3 +57,11 @@ class TestPlaneyRespository(TestCase):
         difference = list(set(planets) - set(list_planet_expected))
         mock_planets.assert_called_once_with()
         self.assertEqual(len(difference), 0)
+
+    @patch.object(PlanetRepository, "delete_planet", return_value=1)
+    def test_delete_planet(self, mock_deleted):
+        id_planet = "5c11734f1c9d440000806485"
+        deleted_count = self.planet_repo.delete_planet(id_planet)
+        print(mock_deleted)
+        mock_deleted.assert_called_once_with()
+        self.assertEqual(1, deleted_count)

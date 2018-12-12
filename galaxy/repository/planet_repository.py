@@ -21,8 +21,8 @@ class PlanetRepository(Repository):
 
     def get_planet_by_name(self, name):
         planets = self.mongo_client.planets_collection.find({"name": name})
-        print(list(planets))
         return [Planet.from_dict(planet) for planet in planets]
 
     def delete_planet(self, id):
-        pass
+        delete_result = self.mongo_client.planets_collection.delete_one({"_id": id})
+        return delete_result.deleted_count
