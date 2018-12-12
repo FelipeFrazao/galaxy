@@ -68,5 +68,5 @@ class TestPlaneyRespository(TestCase):
     @patch.object(PlanetRepository, "insert", return_value="1234ABC")
     def test_insert(self, mock_insert):
         inserted_id = self.planet_repo.insert(planet1.to_dict())
-        
+
         self.assertEqual(inserted_id, planet1.to_dict()["_id"])
