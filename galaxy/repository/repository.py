@@ -21,5 +21,9 @@ class Repository(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
+    def insert(self, planet):
+        pass
+
+    @abc.abstractmethod
     def delete_planet(self, id):
         pass

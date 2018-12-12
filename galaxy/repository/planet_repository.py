@@ -10,6 +10,10 @@ class PlanetRepository(Repository):
         super().__init__()
         self.mongo_client = MongoRepository()
 
+    def insert(self, planet):
+        write_result = self.mongo_client.planets_collection.insert_one(planet)
+        return write_result.inserted_id
+
     def get_planet_by_id(self, id):
         adict = self.mongo_client.planets_collection.find_one({"_id": id})
         planet = Planet.from_dict(adict)
@@ -21,6 +25,7 @@ class PlanetRepository(Repository):
 
     def get_planet_by_name(self, name):
         planets = self.mongo_client.planets_collection.find({"name": name})
+        list(planets)
         return [Planet.from_dict(planet) for planet in planets]
 
     def delete_planet(self, id):
