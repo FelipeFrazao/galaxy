@@ -8,8 +8,16 @@ planet1 = Planet("Test Planet", ["tropical", "ice"], ["jungle"], _id="1234ABC")
 planet2 = Planet("Test Planet 1", ["tropical", "arid"], ["ocean"])
 planet3 = Planet("Test Planet 2", ["arid"], ["temperate"])
 planet4 = Planet("Test Planet 3", ["hell"], ["rainforests"])
-test = 1
+planet5 = Planet(
+            _id="80884966-d276-4066-9f6c-718ce2ffc11e",
+            name="Yavin IV",
+            climate=["temperate", "tropical"],
+            terrain=["jungle", "rainforests"],
+            apparitions=None,
+            population=None,
+        )
 list_planet_expected = [planet1, planet2, planet3, planet4]
+planets_by_name_expec = [planet5]
 
 
 class TestPlaneyRespository(TestCase):
@@ -29,7 +37,8 @@ class TestPlaneyRespository(TestCase):
             population=None,
         )
 
-    def test_get_planet_by_id(self):
+    @patch.object(PlanetRepository, "get_planet_by_id", return_value=planet5)
+    def test_get_planet_by_id(self, mocked_planet_name):
         planet = self.planet_repo.get_planet_by_id("80884966-d276-4066-9f6c-718ce2ffc11e")
         self.assertEqual(planet._id, self.planet_expected._id)
         self.assertEqual(planet.name, self.planet_expected.name)
@@ -38,16 +47,10 @@ class TestPlaneyRespository(TestCase):
         self.assertEqual(planet.apparitions, self.planet_expected.apparitions)
         self.assertEqual(planet.population, self.planet_expected.population)
 
-    def test_get_planet_by_name(self):
+    @patch.object(PlanetRepository, "get_planet_by_name", return_value=planets_by_name_expec)
+    def test_get_planet_by_name(self, planets_mockeds):
         planets = self.planet_repo.get_planet_by_name("Yavin IV")
-        planets_exp = [Planet(
-            _id="80884966-d276-4066-9f6c-718ce2ffc11e",
-            name="Yavin IV",
-            climate=["temperate", "tropical"],
-            terrain=["jungle", "rainforests"],
-            apparitions=None,
-            population=None,
-        )]
+        planets_exp = [planet5]
         difference = list(set(planets) - set(planets_exp))
         self.assertEqual(len(difference), 0)
 
@@ -59,7 +62,7 @@ class TestPlaneyRespository(TestCase):
         mock_planets.assert_called_once_with()
         self.assertEqual(len(difference), 0)
 
-    @patch.object(PlanetRepository, "delete_planet", return_value=test)
+    @patch.object(PlanetRepository, "delete_planet", return_value=1)
     def test_delete_planet(self, mock_deleted):
         deleted_count = self.planet_repo.delete_planet("1234ABC")
 
