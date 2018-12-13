@@ -20,7 +20,7 @@ list_planet_expected = [planet1, planet2, planet3, planet4]
 planets_by_name_expec = [planet5]
 
 
-class TestPlaneyRespository(TestCase):
+class TestUnitPlaneyRespository(TestCase):
 
     def create_app(self):
         app.config['TESTING'] = True

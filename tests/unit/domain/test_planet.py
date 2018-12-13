@@ -5,7 +5,7 @@ from app import app
 from galaxy.domain.planet import Planet
 
 
-class TestPlanetModel(TestCase):
+class TestUnitPlanetModel(TestCase):
 
     def create_app(self):
         app.config['TESTING'] = True
