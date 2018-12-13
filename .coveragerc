@@ -1,10 +1,11 @@
 [run]
 omit =
     .venv/*
-    startup_rabbit.py
-    */__init__.py
+    __init__.py
+    test_*
 
 [report]
 show_missing = True
 exclude_lines =
     if __name__ == .__main__.:
+    pass

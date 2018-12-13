@@ -1,0 +1,15 @@
+language: python
+python:
+  - "3.6"
+  - "3.7-dev"  # 3.7 development branch
+# command to install dependencies
+install:
+  - pip install -r requirements.txt -r requirements_dev.txt
+
+env:
+  - FLASK_APP=app.py
+  - PORT=5005
+# command to run tests
+script:
+  - ./autotest.sh
+
