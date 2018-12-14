@@ -4,7 +4,7 @@ from flask_testing import TestCase
 from flask import jsonify
 
 from app import app
-from galaxy.rest.planet_routes import *
+from galaxy.rest.planet_routes import get_planet_list
 
 
 class TestUnitPlanetRoutes(TestCase):
@@ -44,12 +44,19 @@ class TestUnitPlanetRoutes(TestCase):
             },
         ]
 
-    @patch("galaxy.rest.planet_routes.get_planet_list")
+    def test_if_app_up_on_create_app(self):
+        """
+            Unit: Route: : Test if create_app is working.
+        """
+        self.assertIsNot(app, None)
+        self.assertEqual(self.app.config['TESTING'], True)
+
+    @patch("galaxy.rest.planet_routes.build_planet_list")
     def test_get_planet_list_route(self, mock_builder):
         """
             Unit: Route: Planet: Test method in route /planets/
         """
         mock_builder.return_value = jsonify(self.list_planet)
-        planets_expec = get_planet_list
 
-        self.assertEqual(planets_expec, self.list_planet)
+        planets_expec = get_planet_list()
+        assert planets_expec, jsonify(self.list_planet)

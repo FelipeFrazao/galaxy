@@ -10,3 +10,7 @@ def hello_world():
 
 if __name__ == '__main__':
     app.run()
+
+
+# Inicialize routes
+from galaxy.rest import planet_routes
