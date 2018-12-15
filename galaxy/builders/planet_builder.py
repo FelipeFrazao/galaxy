@@ -13,13 +13,20 @@ def build_planet_list():
     logging.info("[BULDER_PLANET_LIST]: Build planets")
     for planet in planet_list:
         films, population = get_all_data_to_build_planet(planet)
-        print(films)
-        print(population)
+
         if films is not None:
             planet.add_outhers_infos(apparitions=len(films), population=population)
 
     logging.info("[BULDER_PLANET_LIST]: returning planet list json")
     return jsonify([planet.to_dict() for planet in planet_list])
+
+
+def build_planet_by_id(id: str):
+    planet = PlanetRepository().get_planet_by_id(id)
+    films, population = get_all_data_to_build_planet(planet)
+    planet.add_outhers_infos(apparitions=len(films), population=population)
+    planet = planet.to_dict()
+    jsonify(planet)
 
 
 def get_all_data_to_build_planet(planet: Planet):
