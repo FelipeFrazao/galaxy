@@ -22,11 +22,15 @@ def build_planet_list():
 
 
 def build_planet_by_id(id: str):
+    logging.debug("[BULDER_PLANET_BY_ID]: Getting data to build the planet")
     planet = PlanetRepository().get_planet_by_id(id)
+    logging.info("[BULDER_PLANET_BY_ID]: Got planet %s" % id)
+    logging.info("[BULDER_PLANET_BY_ID]: Build planet")
     films, population = get_all_data_to_build_planet(planet)
     planet.add_outhers_infos(apparitions=len(films), population=population)
     planet = planet.to_dict()
-    jsonify(planet)
+    logging.info("[BULDER_PLANET_BY_ID]: returning planet %s json", id)
+    return jsonify(planet)
 
 
 def get_all_data_to_build_planet(planet: Planet):
