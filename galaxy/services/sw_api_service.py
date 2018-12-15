@@ -22,5 +22,4 @@ class SwApiService(object):
         json_val = response.json()
         if response.status_code == 500:
             logging.warning("[SWAPI_SERVICE] - ERROR 500 in %s" % url)
-            abort(500)
         return json_val

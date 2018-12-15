@@ -17,8 +17,14 @@ class Planet(object):
         self.name = name
         self.climate = climate
         self.terrain = terrain
-        self.apparitions = apparitions
-        self.population = population
+        if apparitions is None:
+            self.apparitions = None
+        else:
+            self.apparitions = apparitions
+        if population is None:
+            self.population = None
+        else:
+            self.population = population
 
     def to_dict(self) -> dict:
         """

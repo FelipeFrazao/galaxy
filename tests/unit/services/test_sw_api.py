@@ -89,8 +89,6 @@ class TestUnitSwApiService(TestCase):
         app.config['TESTING'] = True
         return app
 
-    # @patch.dict(os.environ, {"SWAPI_HOST": "https://swapi.co/api/"})
-    # @patch("galaxy.services.sw_api_service.SwApiService.get_planet_info", new=MagicMock())
     @patch.object(SwApiService, "execute_request", return_value=mocK_execute_request)
     def test_get_planet_info(self, mock_infos_planet):
         planet_result = SwApiService().get_planet_info("Tatooine")
