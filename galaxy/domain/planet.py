@@ -4,7 +4,6 @@ import uuid
 class Planet(object):
     def __init__(self, name: str, climate: list, terrain: list, apparitions=None, population=None, _id=None):
         """
-
         :param name: (str) Planet's name
         :param climate: (str) Planet's climate
         :param terrain: (str) Planet's terrain
@@ -48,7 +47,6 @@ class Planet(object):
 
     def add_outhers_infos(self, apparitions: str, population: str):
         """
-
         :param apparitions:
         :param population:
         :return: None
