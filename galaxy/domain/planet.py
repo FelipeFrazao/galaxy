@@ -4,12 +4,11 @@ import uuid
 class Planet(object):
     def __init__(self, name: str, climate: list, terrain: list, apparitions=None, population=None, _id=None):
         """
-
         :param name: (str) Planet's name
         :param climate: (str) Planet's climate
         :param terrain: (str) Planet's terrain
-        :param apparitions: (str) Planet's apparitions in films
-        :param population: (str) Planet's population
+        :param apparitions: (int) Planet's apparitions in films
+        :param population: (int) Planet's population
         """
         if _id is None:
             self._id = uuid.uuid4()
@@ -18,8 +17,14 @@ class Planet(object):
         self.name = name
         self.climate = climate
         self.terrain = terrain
-        self.apparitions = apparitions
-        self.population = population
+        if apparitions is None:
+            self.apparitions = None
+        else:
+            self.apparitions = apparitions
+        if population is None:
+            self.population = None
+        else:
+            self.population = population
 
     def to_dict(self) -> dict:
         """
@@ -48,7 +53,6 @@ class Planet(object):
 
     def add_outhers_infos(self, apparitions: str, population: str):
         """
-
         :param apparitions:
         :param population:
         :return: None

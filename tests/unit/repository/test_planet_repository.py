@@ -1,6 +1,7 @@
-from flask_testing import TestCase
-from app import app
 from unittest.mock import patch
+
+from app import app
+from flask_testing import TestCase
 from galaxy.domain.planet import Planet
 from galaxy.repository.planet_repository import PlanetRepository
 
@@ -9,21 +10,20 @@ planet2 = Planet("Test Planet 1", ["tropical", "arid"], ["ocean"])
 planet3 = Planet("Test Planet 2", ["arid"], ["temperate"])
 planet4 = Planet("Test Planet 3", ["hell"], ["rainforests"])
 planet5 = Planet(
-            _id="80884966-d276-4066-9f6c-718ce2ffc11e",
-            name="Yavin IV",
-            climate=["temperate", "tropical"],
-            terrain=["jungle", "rainforests"],
-            apparitions=None,
-            population=None,
-        )
+    _id="80884966-d276-4066-9f6c-718ce2ffc11e",
+    name="Yavin IV",
+    climate=["temperate", "tropical"],
+    terrain=["jungle", "rainforests"],
+    apparitions=None,
+    population=None,
+)
 list_planet_expected = [planet1, planet2, planet3, planet4]
 planets_by_name_expec = [planet5]
 
 
-class TestPlaneyRespository(TestCase):
-
+class TestUnitPlaneyRespository(TestCase):
     def create_app(self):
-        app.config['TESTING'] = True
+        app.config["TESTING"] = True
         return app
 
     def setUp(self):

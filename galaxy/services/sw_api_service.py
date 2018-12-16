@@ -1,8 +1,7 @@
+import logging
 import os
 
 import requests
-from flask import abort
-import logging
 
 
 class SwApiService(object):
@@ -12,11 +11,9 @@ class SwApiService(object):
     def get_planet_info(self, name: str):
         path = "planets/?search=%s" % name
         planet = self.execute_request(path)
-        apparitions = len(planet["films"])
-        population = int(planet["population"])
-        return apparitions, population
+        return planet["results"][0]
 
-    def execute_request(self, path: str, throws_404=False):
+    def execute_request(self, path: str):
         url = "%s%s" % (self.swapi_host, path)
         logging.info("[SWAPI_SERVICE] - Execute: %s" % url)
         headers = {"Content-Type": "application/json"}
@@ -24,5 +21,4 @@ class SwApiService(object):
         json_val = response.json()
         if response.status_code == 500:
             logging.warning("[SWAPI_SERVICE] - ERROR 500 in %s" % url)
-            abort(500)
-        return json_val["results"][0]
+        return json_val
