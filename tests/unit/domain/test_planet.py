@@ -1,14 +1,13 @@
-from flask_testing import TestCase
 import uuid
 
 from app import app
+from flask_testing import TestCase
 from galaxy.domain.planet import Planet
 
 
 class TestUnitPlanetModel(TestCase):
-
     def create_app(self):
-        app.config['TESTING'] = True
+        app.config["TESTING"] = True
         self.planet = Planet("Test Planet", ["tropical"], ["jungle"])
         self.uid = str(uuid.uuid4())
         self.planet._id = self.uid

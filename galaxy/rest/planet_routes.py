@@ -1,14 +1,16 @@
 import logging
 
-from flask import request, send_from_directory, render_template
+from flask import request
 
 from app import app
-from galaxy.builders.planet_builder import build_planet_list, build_planet_by_id, build_planet_by_name, \
-    build_planet_delete
+from galaxy.builders.planet_builder import build_planet_by_id
+from galaxy.builders.planet_builder import build_planet_by_name
+from galaxy.builders.planet_builder import build_planet_delete
+from galaxy.builders.planet_builder import build_planet_list
 
 
-@app.route("/v1/planet/", methods=['GET'])
-@app.route("/planets", methods=['GET'])
+@app.route("/v1/planet/", methods=["GET"])
+@app.route("/planets", methods=["GET"])
 def get_planet_list():
     name = request.args.get("name")
     if name is not None:

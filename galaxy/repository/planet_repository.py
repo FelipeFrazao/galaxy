@@ -1,12 +1,11 @@
-# from repository import
+import logging
+
 from galaxy.domain.planet import Planet
 from galaxy.repository.mongo_repository import MongoRepository
 from galaxy.repository.repository import Repository
-import logging
 
 
 class PlanetRepository(Repository):
-
     def __init__(self):
         super().__init__()
         self.mongo_client = MongoRepository()

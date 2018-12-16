@@ -1,9 +1,9 @@
 from unittest.mock import patch
 
-from flask_testing import TestCase
 from flask import jsonify
 
 from app import app
+from flask_testing import TestCase
 from galaxy.rest.planet_routes import get_planet_list
 
 
@@ -13,7 +13,7 @@ class TestUnitPlanetRoutes(TestCase):
     """
 
     def create_app(self):
-        app.config['TESTING'] = True
+        app.config["TESTING"] = True
         return app
 
     def setUp(self):
@@ -49,7 +49,7 @@ class TestUnitPlanetRoutes(TestCase):
             Unit: Route: : Test if create_app is working.
         """
         self.assertIsNot(app, None)
-        self.assertEqual(self.app.config['TESTING'], True)
+        self.assertEqual(self.app.config["TESTING"], True)
 
     @patch("galaxy.rest.planet_routes.build_planet_list")
     def test_get_planet_list_route(self, mock_builder):

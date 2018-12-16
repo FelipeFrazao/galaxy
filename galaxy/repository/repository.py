@@ -2,7 +2,6 @@ import abc
 
 
 class Repository(metaclass=abc.ABCMeta):
-
     @abc.abstractmethod
     def __init__(self):
         pass

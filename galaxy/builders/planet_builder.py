@@ -1,9 +1,10 @@
+import logging
+
 from flask import jsonify
 
 from galaxy.domain.planet import Planet
 from galaxy.repository.planet_repository import PlanetRepository
 from galaxy.services.sw_api_service import SwApiService
-import logging
 
 
 def build_planet_list():

@@ -1,8 +1,7 @@
+import logging
 import os
 
 import requests
-from flask import abort
-import logging
 
 
 class SwApiService(object):
