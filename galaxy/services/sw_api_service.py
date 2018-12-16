@@ -3,6 +3,8 @@ import os
 
 import requests
 
+from app import app
+
 
 class SwApiService(object):
     def __init__(self):
@@ -13,6 +15,7 @@ class SwApiService(object):
         planet = self.execute_request(path)
         return planet["results"][0]
 
+    @app.cache.cached(timeout=300)
     def execute_request(self, path: str):
         url = "%s%s" % (self.swapi_host, path)
         logging.info("[SWAPI_SERVICE] - Execute: %s" % url)

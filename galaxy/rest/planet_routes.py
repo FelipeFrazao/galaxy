@@ -10,7 +10,8 @@ from galaxy.builders.planet_builder import build_planet_list
 
 
 @app.route("/v1/planet/", methods=["GET"])
-@app.route("/planets", methods=["GET"])
+@app.route("/planet", methods=["GET"])
+@app.cache.cached(timeout=300)
 def get_planet_list():
     name = request.args.get("name")
     if name is not None:
@@ -24,6 +25,7 @@ def get_planet_list():
 
 @app.route("/planet/<planetid>/")
 @app.route("/v1/planet/<planetid>/")
+@app.cache.cached(timeout=300)
 def get_planet_by_id(planetid):
     logging.debug("[GET] /planet/%s" % planetid)
     resp = build_planet_by_id(planetid)

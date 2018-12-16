@@ -1,20 +1,24 @@
 # Galaxy
 
-[![Build Status](https://travis-ci.com/FelipeFrazao/galaxy.svg?branch=master)](https://travis-ci.com/FelipeFrazao/galaxy) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+[![Build Status](https://travis-ci.com/FelipeFrazao/galaxy.svg?branch=master)](https://travis-ci.com/FelipeFrazao/galaxy) 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Django.svg)](https://github.com/FelipeFrazao/galaxy)
 
 ---
 
 ## Documentação de EndPoints
 
-A documentação dos end points está sendo feitas no padrão swagger, o arquivo é esse [aqui](api-v1-swagger.yml). E ela pode acessada [aqui](https://app.swaggerhub.com/apis-docs/FelipeFrazao/Galaxy/1.0.0#/).
+A documentação dos end points está sendo feitas no padrão swagger, 
+o arquivo é esse [aqui](api-v1-swagger.yml). 
+E ela pode acessada [aqui](https://app.swaggerhub.com/apis-docs/FelipeFrazao/Galaxy/1.0.0#/).
 ## Desenvolvimento
 
 ### VsCode Tips
 
 #### files.exclude
 
-Remove do explore de arquivos os arquivos configurados. para esse projeto a configuração sugerida é:
+Remove do explore de arquivos os arquivos configurados. 
+para esse projeto a configuração sugerida é:
 
 ```json
     "files.exclude": {
@@ -26,7 +30,9 @@ Remove do explore de arquivos os arquivos configurados. para esse projeto a conf
 
 #### formatOnSave
 
-Toda vez que você salvar um arquivo ele vai formatar o arquivo seguindo o padrão definido em `python.formatting.provider`. O projeto usa o provider `autopep8`. A configuração sugerida é:
+Toda vez que você salvar um arquivo ele vai formatar o arquivo 
+seguindo o padrão definido em `python.formatting.provider`. 
+O projeto usa o provider `autopep8`. A configuração sugerida é:
 
 ```json
     "editor.formatOnSave": true,
@@ -47,17 +53,19 @@ Habilite a opção do VsCode exibir os warnings de lint para você com a seguint
     ],
 ```
 
-
 ### Usado no Projeto
 #### Coverage
 
-O arquivo [.coveragerc](.coveragerc) possui as configurações para a execução correta do coverage.
+O arquivo [.coveragerc](.coveragerc) possui as configurações 
+para a execução correta do coverage.
 
 #### Isort
 
-O arquivo [.isort.cfg](.isort.cfg) possui as configurações para a organização dos imports do projeto.
+O arquivo [.isort.cfg](.isort.cfg) possui as configurações para a 
+organização dos imports do projeto.
 
-Use a extensão [Save and Run](https://marketplace.visualstudio.com/items?itemName=wk-j.save-and-run) para executar o comando `isort` toda vez que um arquivo `.py` for salvo.
+Use a extensão [Save and Run](https://marketplace.visualstudio.com/items?itemName=wk-j.save-and-run) 
+para executar o comando `isort` toda vez que um arquivo `.py` for salvo.
 A configuração que deve ser feita no VsCode é no arquivo `settings.json` da seguinte maneira:
 
 ```json
@@ -78,17 +86,18 @@ A configuração que deve ser feita no VsCode é no arquivo `settings.json` da s
 
 O arquivo [.pylintrc](.pylintrc) possui as configurações do lint para o projeto.
 
-
 ##### flake8 e pep8
 
 A configuração de ambos os lints está no arquivo [setup.cfg](setup.cfg).
 
-A única mudança do lint nesse caso é que o tamanho maximo da linha foi alterado de 80 para 120.
+A única mudança do lint nesse caso é que o tamanho 
+maximo da linha foi alterado de 80 para 120.
 
 ##### pylint-flask
 
 O projeto faz uso do plugin [pylint-flask](https://github.com/jschaf/pylint-flask).
-Ele aparece na configuração do VsCode que é responsável por executar o link, com a configuração abaixo você carrega o plugin:
+Ele aparece na configuração do VsCode que é responsável por executar o link, 
+com a configuração abaixo você carrega o plugin:
 
 ```json
     "python.linting.pylintArgs": [
