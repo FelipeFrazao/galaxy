@@ -2,9 +2,6 @@ engines:
   pep8:
     enabled: true
 
-  markdownlint:
-    enabled: true
-
   sonar-python:
     enabled: true
       

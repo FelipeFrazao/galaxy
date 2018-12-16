@@ -117,7 +117,10 @@ A sugestão para execução dos testes é o commando abaixo:
 docker-compose run web nosetests -v --with-watch --with-coverage --cover-package=. --detailed-errors
 ```
 
-Ele vai utilizar o comando `nosetests` com verbosidade `1`, vai exibir o relatório de cobertura do coverage no final e o parametro `--with-watch` vai manter o comando ativo esperando algum arquivo ser salvo, toda vez que você salvar um arquivo ele vai re executar os testes.
+Ele vai utilizar o comando `nosetests` com 
+verbosidade `1`, vai exibir o relatório de cobertura do coverage
+ no final e o parametro `--with-watch` vai manter o comando ativo esperando algum arquivo ser salvo, toda vez que você 
+ salvar um arquivo ele vai re executar os testes.
 
 Ou pode rodar de dentro do container
 ```bash
