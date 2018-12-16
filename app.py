@@ -16,4 +16,3 @@ if __name__ == '__main__':
 
 # Inicialize routes
 from galaxy.rest import planet_routes
-from galaxy.rest.planet_routes import get_planet_by_id

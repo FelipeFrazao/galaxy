@@ -33,6 +33,21 @@ def build_planet_by_id(id: str):
     return jsonify(planet)
 
 
+def build_planet_by_name(name: str):
+    logging.debug("[BULDER_PLANET_BY_NAME]: Getting data to build the planet")
+    planet_list = PlanetRepository().get_planet_by_name(name)
+    logging.info("[BULDER_PLANET_BY_NAME]: Got %s planets by %s" % (len(planet_list), name))
+    logging.info("[BULDER_PLANET_BY_NAME]: Build planets")
+    for planet in planet_list:
+        films, population = get_all_data_to_build_planet(planet)
+
+        if films is not None:
+            planet.add_outhers_infos(apparitions=len(films), population=population)
+
+    logging.info("[BULDER_PLANET_BY_NAME]: returning planet by name list json")
+    return jsonify([planet.to_dict() for planet in planet_list])
+
+
 def get_all_data_to_build_planet(planet: Planet):
     if planet.apparitions is None or planet.population is None:
         planet_result = SwApiService().get_planet_info(planet.name)
