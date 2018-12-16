@@ -3,7 +3,8 @@ import logging
 from flask import request
 
 from app import app
-from galaxy.builders.planet_builder import build_planet_list, build_planet_by_id, build_planet_by_name
+from galaxy.builders.planet_builder import build_planet_list, build_planet_by_id, build_planet_by_name, \
+    build_planet_delete
 
 
 @app.route("/v1/planets/", methods=['GET'])
@@ -24,4 +25,12 @@ def get_planet_list():
 def get_planet_by_id(planetid):
     logging.debug("[GET] /planets/%s" % planetid)
     resp = build_planet_by_id(planetid)
+    return resp
+
+
+@app.route("/planets/<planetid>/delete", methods=["DELETE"])
+@app.route("/v1/planets/<planetid>/delete", methods=["DELETE"])
+def delete_planet(planetid):
+    logging.debug("[DELETE] /planets/%s" % planetid)
+    resp = build_planet_delete(planetid)
     return resp

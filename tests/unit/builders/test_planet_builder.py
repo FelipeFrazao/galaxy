@@ -2,7 +2,8 @@ from flask_testing import TestCase
 
 from app import app
 from unittest.mock import patch
-from galaxy.builders.planet_builder import build_planet_list, build_planet_by_id, build_planet_by_name
+from galaxy.builders.planet_builder import build_planet_list, build_planet_by_id, build_planet_by_name, \
+    build_planet_delete
 from galaxy.domain.planet import Planet
 from galaxy.repository.planet_repository import PlanetRepository
 from galaxy.services.sw_api_service import SwApiService
@@ -99,8 +100,7 @@ planet_by_name_expec = [{
     "terrain": ["jungle", "rainforests"],
     "apparitions": 1,
     "population": 1000
-}
-]
+}]
 
 
 class TestUnitPlanetBuilder(TestCase):
@@ -126,3 +126,18 @@ class TestUnitPlanetBuilder(TestCase):
     def test_build_planet_by_name(self, mock_planet_repository, mock_sw_api_service):
         planet_result = build_planet_by_name("Yavin IV")
         assert planet_result, planet_by_name_expec
+
+    @patch.object(PlanetRepository, "delete_planet", return_value=1)
+    def test_build_planet_delete(self, mock_planet_delete):
+        resp = build_planet_delete("80884966-d276-4066-9f6c-718ce2ffc11e")
+        assert resp, {"message": "Deletado com sucesso"}
+
+    @patch.object(PlanetRepository, "delete_planet", return_value=0)
+    def test_build_planet_delete(self, mock_planet_delete):
+        resp = build_planet_delete("80884966-d276-4066-9f6c-718ce2ffc11e")
+        assert resp, {"message": "Planeta não encontrado"}
+
+    @patch.object(PlanetRepository, "delete_planet", return_value={"message": "Deletado com sucesso"})
+    def test_build_planet_delete(self, mock_planet_delete):
+        resp = build_planet_delete("80884966-d276-4066-9f6c-718ce2ffc11e")
+        assert resp, {"message": "Deletado com sucesso"}

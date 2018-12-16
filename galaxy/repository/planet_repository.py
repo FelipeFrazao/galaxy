@@ -3,8 +3,6 @@ from galaxy.domain.planet import Planet
 from galaxy.repository.mongo_repository import MongoRepository
 from galaxy.repository.repository import Repository
 import logging
-import re
-
 
 
 class PlanetRepository(Repository):
@@ -19,8 +17,9 @@ class PlanetRepository(Repository):
 
     def get_planet_by_id(self, id):
         adict = self.mongo_client.planets_collection.find_one({"_id": id})
-        planet = Planet.from_dict(adict)
-        return planet
+        if adict is not None:
+            planet = Planet.from_dict(adict)
+            return planet
 
     def get_planet_list(self):
         planets = self.mongo_client.planets_collection.find()
