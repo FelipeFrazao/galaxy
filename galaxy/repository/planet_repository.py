@@ -2,6 +2,9 @@
 from galaxy.domain.planet import Planet
 from galaxy.repository.mongo_repository import MongoRepository
 from galaxy.repository.repository import Repository
+import logging
+import re
+
 
 
 class PlanetRepository(Repository):
@@ -24,8 +27,11 @@ class PlanetRepository(Repository):
         return [Planet.from_dict(planet) for planet in planets]
 
     def get_planet_by_name(self, name):
-        planets = self.mongo_client.planets_collection.find({"name": name})
-        list(planets)
+        query = {"name": {"$regex": name, "$options": "i"}}
+        print(query)
+        logging.info("[GET PLANETS BY NAME]: query %s" % query)
+        planets = self.mongo_client.planets_collection.find(query)
+        planets = list(planets)
         return [Planet.from_dict(planet) for planet in planets]
 
     def delete_planet(self, id):
