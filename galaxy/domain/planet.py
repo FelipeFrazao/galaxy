@@ -7,8 +7,8 @@ class Planet(object):
         :param name: (str) Planet's name
         :param climate: (str) Planet's climate
         :param terrain: (str) Planet's terrain
-        :param apparitions: (str) Planet's apparitions in films
-        :param population: (str) Planet's population
+        :param apparitions: (int) Planet's apparitions in films
+        :param population: (int) Planet's population
         """
         if _id is None:
             self._id = uuid.uuid4()
