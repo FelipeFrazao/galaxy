@@ -1,6 +1,6 @@
 """
     Start project
-    isort:skip_file 
+    isort: skip_file
 """
 # flake8: noqa F401 F402
 from flask import Flask
