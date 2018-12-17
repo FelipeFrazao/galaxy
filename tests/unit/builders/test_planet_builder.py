@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 from app import app
 from flask_testing import TestCase
-from galaxy.builders.planet_builder import build_planet_by_id
+from galaxy.builders.planet_builder import build_planet_by_id, build_insert_planet
 from galaxy.builders.planet_builder import build_planet_by_name
 from galaxy.builders.planet_builder import build_planet_delete
 from galaxy.builders.planet_builder import build_planet_list
@@ -114,6 +114,17 @@ planet_by_name_expec = [
         "population": 1000,
     }
 ]
+planet_mock_insert = {
+    "_id": "80884966-d276-4066-9f6c-718ce2ffc11e",
+    "name": "Yavin IV",
+    "climate": ["temperate", "tropical"],
+    "terrain": ["jungle", "rainforests"],
+}
+planet_mock_insert_invalid = {
+    "_id": "80884966-d276-4066-9f6c-718ce2ffc11e",
+    "climate": "tropical",
+    "terrain": ["jungle", "rainforests"],
+}
 
 
 class TestUnitPlanetBuilder(TestCase):
@@ -148,3 +159,13 @@ class TestUnitPlanetBuilder(TestCase):
     def test_build_planet_delete_sucess(self, mock_planet_delete):
         resp = build_planet_delete("80884966-d276-4066-9f6c-718ce2ffc11e")
         assert resp, {"message": "Deletado com sucesso"}
+
+    @patch.object(PlanetRepository, "insert", return_value="80884966-d276-4066-9f6c-718ce2ffc11e")
+    def test_build_insert_planet(self, mock_id_inserted):
+        resp = build_insert_planet(planet_mock_insert)
+        assert resp, 201
+
+    @patch.object(PlanetRepository, "insert", return_value="80884966-d276-4066-9f6c-718ce2ffc11e")
+    def test_build_insert_planet_400(self, mock_id_inserted):
+        resp = build_insert_planet(planet_mock_insert_invalid)
+        assert resp, 400

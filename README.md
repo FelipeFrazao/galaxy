@@ -9,7 +9,7 @@
 ## Documentação de EndPoints
 
 A documentação dos end points está sendo feitas no padrão swagger, 
-o arquivo é esse [aqui](api-v1-swagger.yml). 
+o arquivo é esse [aqui](api-v1-swagger.yaml). 
 E ela pode acessada [aqui](https://app.swaggerhub.com/apis-docs/FelipeFrazao/Galaxy/1.0.0#/).
 ## Desenvolvimento
 
