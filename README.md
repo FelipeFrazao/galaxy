@@ -1,6 +1,6 @@
 # Galaxy
 
-[![Build Status](https://travis-ci.com/FelipeFrazao/galaxy.svg?branch=develop)](https://travis-ci.com/FelipeFrazao/galaxy) 
+[![Build Status](https://travis-ci.com/FelipeFrazao/galaxy.svg?branch=master)](https://travis-ci.com/FelipeFrazao/galaxy) 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Django.svg)](https://github.com/FelipeFrazao/galaxy)
 
