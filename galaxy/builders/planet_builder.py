@@ -1,6 +1,6 @@
 import logging
 
-from flask import jsonify, abort
+from flask import jsonify
 
 from galaxy.domain.planet import Planet
 from galaxy.repository.planet_repository import PlanetRepository
@@ -67,7 +67,7 @@ def build_planet_delete(id: str):
 
 def build_insert_planet(planet: dict):
     logging.info("[BUILDER_INSERT_PLANET]: Insert Planet")
-    if "name" in planet and  "climate" in planet and "terrain" in planet:
+    if "name" in planet and "climate" in planet and "terrain" in planet:
         if type(planet["climate"]) == list and type(planet["terrain"]) == list:
             logging.info("[BUILDER_INSERT_PLANET]: Planet Valid")
             planet = Planet.from_dict(planet)
@@ -77,7 +77,8 @@ def build_insert_planet(planet: dict):
             resp = {"message": message}
             return jsonify(resp), 201
     logging.info("[BUILDER_INSERT_PLANET]: Planet missing required params")
-    return abort(400)
+    resp = {"message": "Planeta faltando parametros obrigatorios"}
+    return jsonify(resp), 400
 
 
 def get_all_data_to_build_planet(planet: Planet):

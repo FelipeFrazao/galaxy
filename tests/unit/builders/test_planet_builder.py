@@ -2,7 +2,8 @@ from unittest.mock import patch
 
 from app import app
 from flask_testing import TestCase
-from galaxy.builders.planet_builder import build_planet_by_id, build_insert_planet
+from galaxy.builders.planet_builder import build_insert_planet
+from galaxy.builders.planet_builder import build_planet_by_id
 from galaxy.builders.planet_builder import build_planet_by_name
 from galaxy.builders.planet_builder import build_planet_delete
 from galaxy.builders.planet_builder import build_planet_list
