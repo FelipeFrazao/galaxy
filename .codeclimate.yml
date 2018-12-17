@@ -1,0 +1,13 @@
+engines:
+  pep8:
+    enabled: true
+
+  sonar-python:
+    enabled: true
+      
+exclude_patterns:
+  - "**/.venv/"
+  - "**/.data/"
+  - "**/.pytest_cache/"
+  - "**/.vscode/"
+  - "**/tests/"

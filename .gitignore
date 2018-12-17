@@ -80,11 +80,6 @@ coverage.xml
 *.mo
 *.pot
 
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-
 # Flask stuff:
 instance/
 .webassets-cache
@@ -98,8 +93,6 @@ docs/_build/
 # PyBuilder
 target/
 
-# Jupyter Notebook
-.ipynb_checkpoints
 
 # pyenv
 .python-version
@@ -111,13 +104,13 @@ celerybeat-schedule
 *.sage.py
 
 # Environments
-.env
 .venv
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
+.vscode/
 
 # Spyder project settings
 .spyderproject
@@ -134,5 +127,3 @@ venv.bak/
 
 # pycharm
 .idea/
-.idea/vcs.xml
-.idea/vcs.xml

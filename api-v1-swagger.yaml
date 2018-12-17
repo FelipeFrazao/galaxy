@@ -1,0 +1,125 @@
+openapi: 3.0.0
+info:
+  title: Galaxy API
+  description: Flask API para pegar informações de planetas de Star Wars
+  contact:
+    email: felipe.sfrazao@outlook.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: http://0.0.0.0:5005/v1/
+  description: Localhost
+paths:
+  /planet:
+    get:
+      tags:
+      - Get Planets
+      summary: get planets
+      description: |
+        Retorna uma lista de planetas podendo ser filtrada pelo nome
+      operationId: getPlanet
+      parameters:
+      - name: name
+        in: query
+        description: Filtrar planetas pelo nome
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Planet'
+  /planet/{planetid}:
+    get:
+      tags:
+      - Get Planet by id
+      summary: get planets
+      description: |
+        Retorna uma lista de planetas podendo ser filtrada pelo nome
+      operationId: getPlanet
+      parameters:
+      - name: planetid
+        in: path
+        description: Id do planeta
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uid
+      responses:
+        200:
+          description: Planeta encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Planet'
+        204:
+          description: Planeta não encontrado
+  /planet/{planetid}/delete:
+    delete:
+      tags:
+      - Delete Planet
+      summary: delete planet
+      description: |
+        Deleta um planeta pelo seu id
+      operationId: deletePlanet
+      parameters:
+      - name: planetid
+        in: path
+        description: Id do planeta
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uid
+      responses:
+        200:
+          description: planeta deletado
+        204:
+          description: Planeta não encontrado
+components:
+  schemas:
+    Planet:
+      required:
+      - _id
+      - climate
+      - name
+      - terrain
+      type: object
+      properties:
+        _id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        name:
+          type: string
+          example: Terra
+        terrain:
+          type: array
+          items:
+            type: string
+            example: '["ocean","desert"]'
+        climate:
+          type: array
+          items:
+            type: string
+            example: '["jungle","rainforests"]'
+        apparitions:
+          type: integer
+          format: int32
+          example: 5
+        population:
+          type: integer
+          format: int32
+          example: 30000
