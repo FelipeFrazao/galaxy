@@ -16,7 +16,7 @@ env:
     # GENERAL
     - GOOGLE_APPLICATION_CREDENTIALS=~/gcloud-service-key.json
     - CLOUDSDK_COMPUTE_ZONE=us-central1-a
-    - DOCKER_IMAGE_NAME=galaxy
+    - DOCKER_IMAGE_NAME=galaxyimage
     - K8S_NAMESPACE=default
     - KUBE_DEPLOYMENT_NAME=galaxykube
     - KUBE_DEPLOYMENT_CONTAINER_NAME=app
@@ -39,6 +39,7 @@ before_deploy:
   - source /home/travis/google-cloud-sdk/path.bash.inc
   - gcloud --quiet version
   - gcloud --quiet components update
+  - gcloud --quiet components beta update
   - gcloud --quiet components update kubectl
 
 
