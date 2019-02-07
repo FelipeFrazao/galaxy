@@ -16,10 +16,10 @@ env:
     # GENERAL
     - GOOGLE_APPLICATION_CREDENTIALS=~/gcloud-service-key.json
     - CLOUDSDK_COMPUTE_ZONE=us-central1-a
-    - DOCKER_IMAGE_NAME=galaxyimage
+    - DOCKER_IMAGE_NAME=galaxy
     - K8S_NAMESPACE=default
-    - KUBE_DEPLOYMENT_NAME=galaxykube
-    - KUBE_DEPLOYMENT_CONTAINER_NAME=app
+    - KUBE_DEPLOYMENT_NAME=galaxy-web
+    - KUBE_DEPLOYMENT_CONTAINER_NAME=galaxy-web
 
     # DEV
     - PROJECT_NAME_PRD=galaxy-123456
