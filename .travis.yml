@@ -45,7 +45,7 @@ before_deploy:
 
 deploy:
 - provider: script
-  script: chmod +x gcloud/deploy-develop.sh && gcloud/deploy-develop.sh
+  script: chmod +x ./deploy-develop.sh && ./deploy-develop.sh
   skip_cleanup: true
   on:
     branch: gcloud
