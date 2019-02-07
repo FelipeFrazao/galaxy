@@ -1,41 +1,52 @@
+sudo: false
+
 language: python
 python:
   - "3.6"
 
+
+services:
+  - docker
+
+env:
+  global:
+    # GENERAL
+    - GOOGLE_APPLICATION_CREDENTIALS=~/gcloud-service-key.json
+    - CLOUDSDK_COMPUTE_ZONE=us-central1-a
+    - DOCKER_IMAGE_NAME=image-docker-api
+    - K8S_NAMESPACE=default
+    - KUBE_DEPLOYMENT_NAME=k8s-deploy-name
+    - KUBE_DEPLOYMENT_CONTAINER_NAME=app
+
+    # DEV
+    - PROJECT_NAME_PRD=galaxy-123456
+    - CLUSTER_NAME_PRD=galaxy-cluster
+# command to install dependencies
+install:
+  - pip install -r requirements.txt -r requirements_dev.txt
+
+# command to run tests
+script:
+  - ./autotest.sh
+
 dist: trusty
-sudo: false
 
 cache:
   directories:
     - "$HOME/google-cloud-sdk/"
 
-services:
-  - docker
-
 before_deploy:
-  -
   - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
   - source /home/travis/google-cloud-sdk/path.bash.inc
   - gcloud --quiet version
   - gcloud --quiet components update
+  - gcloud --quiet components beta update
   - gcloud --quiet components update kubectl
-env:
-  global:
-    # GENERAL
-    - GOOGLE_APPLICATION_CREDENTIALS=~/gcloud-service-key.json
-    - ZONE=us-central1-a
-    - IMAGE_NAME=image-docker-api
-    - K8S_NAMESPACE=default
-    - APP_DEPLOYMENT=k8s-deploy-name
-    - APP_CONTAINER=app
 
-    # DEV
-    - PROJECT_DEV=galaxy-123456
-    - CLUSTER_DEV=galaxy-cluster
 
 deploy:
 - provider: script
   script: chmod +x gcloud/deploy-develop.sh && gcloud/deploy-develop.sh
   skip_cleanup: true
   on:
-    branch: develop
+    branch: gcloud
