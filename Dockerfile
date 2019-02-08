@@ -15,7 +15,6 @@ RUN pip install --upgrade pip && \
 
 # Copy Entrypoint script in the container
 COPY ./docker-entrypoint.sh /
-COPY ./.env /
-CMD `cat .env | grep -v '^\s*#'`
-
+COPY .env /
+RUN export $ (cat my-env-vars | xargs)
 ENTRYPOINT ["/docker-entrypoint.sh"]
