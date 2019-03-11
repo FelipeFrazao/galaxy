@@ -33,16 +33,16 @@ def get_planet_by_id(planetid):
     return resp
 
 
-@app.route("/planet/<planetid>/delete", methods=["DELETE"])
-@app.route("/v1/planet/<planetid>/delete", methods=["DELETE"])
+@app.route("/planet/<planetid>/", methods=["DELETE"])
+@app.route("/v1/planet/<planetid>/", methods=["DELETE"])
 def delete_planet(planetid):
     logging.debug("[DELETE] /planet/%s" % planetid)
     resp = build_planet_delete(planetid)
     return resp
 
 
-@app.route("/planet/add", methods=["POST"])
-@app.route("/v1/planet/add", methods=["POST"])
+@app.route("/planet/", methods=["POST"])
+@app.route("/v1/planet/", methods=["POST"])
 def insert_planet():
     planet = request.json
     planet = json.dumps(planet)
