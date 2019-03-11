@@ -1,0 +1,1 @@
+web: gunicorn -k gevent -t $GUNICORN_DEBUG_TIMEOUT --access-logfile - --reload --max-requests $GUNICORN_MAX_REQUESTS -w $GUNICORN_WORKS -b 0.0.0.0:$PORT app:app

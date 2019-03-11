@@ -6,7 +6,13 @@ services:
     ports:
       - "5005:5005"
 
-    env_file: .env
+    environment:
+      - FLASK_APP=app.py
+      - PORT=5005
+      - SWAPI_HOST=https://swapi.co/api/
+      - MONGO_CONNECTION_STRING=mongodb+srv://felipefrazao:felipefrazao21.@cluster0-tzcsp.mongodb.net/starwars
+      - STAR_WARS_DB=star_wars_db
+      - PLANETS_COLLECTION=planets
     volumes:
       - .:/galaxy
     command:
