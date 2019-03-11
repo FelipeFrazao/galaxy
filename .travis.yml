@@ -1,7 +1,29 @@
+sudo: false
+
 language: python
 python:
   - "3.6"
-  - "3.7-dev"  # 3.7 development branch
+
+cache:
+  directories:
+    - "$HOME/google-cloud-sdk/"
+
+services:
+  - docker
+
+env:
+  global:
+    # GENERAL
+    - GOOGLE_APPLICATION_CREDENTIALS=~/gcloud-service-key.json
+    - CLOUDSDK_COMPUTE_ZONE=us-central1-a
+    - DOCKER_IMAGE_NAME=galaxy
+    - K8S_NAMESPACE=default
+    - KUBE_DEPLOYMENT_NAME=galaxy-web
+    - KUBE_DEPLOYMENT_CONTAINER_NAME=galaxy-web
+
+    # DEV
+    - PROJECT_NAME_PRD=galaxy-123456
+    - CLUSTER_NAME_PRD=galaxy-cluster
 # command to install dependencies
 install:
   - pip install -r requirements.txt -r requirements_dev.txt
@@ -10,3 +32,20 @@ install:
 script:
   - ./autotest.sh
 
+dist: trusty
+
+before_deploy:
+  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+  - source /home/travis/google-cloud-sdk/path.bash.inc
+  - gcloud --quiet version
+  - gcloud --quiet components update
+#  - gcloud --quiet components update beta
+  - gcloud --quiet components update kubectl
+
+
+deploy:
+- provider: script
+  script: chmod +x ./deploy-develop.sh && ./deploy-develop.sh
+  skip_cleanup: true
+  on:
+    branch: gcloud

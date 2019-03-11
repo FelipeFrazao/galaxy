@@ -1,0 +1,55 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    run: galaxy-web
+  name: galaxy-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: galaxy-web
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: galaxy-web
+    spec:
+      containers:
+      - image: galaxy
+        name: galaxy-web
+        env:
+          - name: FLASK_APP
+            valueFrom:
+              configMapKeyRef:
+                name: FLASK_APP
+                key: app.py
+          - name: PORT
+            valueFrom:
+              configMapKeyRef:
+                name: PORT
+                key: 5005
+          - name: SWAPI_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: SWAPI_HOST
+                key: https://swapi.co/api/
+          - name: MONGO_CONNECTION_STRING
+            valueFrom:
+              configMapKeyRef:
+                name: MONGO_CONNECTION_STRING
+                key: mongodb+srv://felipefrazao:felipefrazao21.@cluster0-tzcsp.mongodb.net/starwars
+          - name: STAR_WARS_DB
+            valueFrom:
+              configMapKeyRef:
+                name: STAR_WARS_DB
+                key: star_wars_db
+          - name: PLANETS_COLLECTION
+            valueFrom:
+              configMapKeyRef:
+                name: PLANETS_COLLECTION
+                key: planets
+        resources: {}
+status: {}
