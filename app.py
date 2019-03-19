@@ -7,6 +7,8 @@ from flask import Flask
 import logging
 from flask_caching import Cache
 
+from galaxy.rest.planet_routes import planet_blueprint
+
 app = Flask(__name__)
 logging.getLogger().setLevel(logging.DEBUG)
 
@@ -18,6 +20,5 @@ app.cache = Cache(app)
 if __name__ == "__main__":
     app.run()
 
-
 # Inicialize routes
-from galaxy.rest import planet_routes
+app.register_blueprint(planet_blueprint)

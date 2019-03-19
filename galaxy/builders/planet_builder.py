@@ -84,7 +84,7 @@ def build_insert_planet(planet: dict):
 def get_all_data_to_build_planet(planet: Planet):
     if planet.apparitions is None or planet.population is None:
         planet_result = SwApiService().get_planet_info(planet.name)
-        films = planet_result["films"]
+        films = planet_result.get("films", None)
 
         try:
             population = int(planet_result["population"])
