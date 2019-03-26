@@ -17,7 +17,7 @@ class SwApiService(object):
             return planet["results"][0]
         return {}
 
-    # @app.cache.cached(timeout=300)
+    # @cache.cached(timeout=300, )
     def execute_request(self, path: str):
         url = "%s%s" % (self.swapi_host, path)
         logging.info("[SWAPI_SERVICE] - Execute: %s" % url)

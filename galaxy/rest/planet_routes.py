@@ -7,13 +7,14 @@ from galaxy.builders.planet_builder import build_planet_by_id, build_insert_plan
 from galaxy.builders.planet_builder import build_planet_by_name
 from galaxy.builders.planet_builder import build_planet_delete
 from galaxy.builders.planet_builder import build_planet_list
+from galaxy.services.cache_service import cache
 
 planet_blueprint = Blueprint("planet_blueprint", __name__)
 
 
 @planet_blueprint.route("/v1/planet/", methods=["GET", ])
 @planet_blueprint.route("/planet", methods=["GET", ])
-# @app.cache.cached(timeout=300)
+@cache.cached(timeout=300)
 def get_planet_list():
     name = request.args.get("name")
     if name is not None:
@@ -27,7 +28,7 @@ def get_planet_list():
 
 @planet_blueprint.route("/planet/<planetid>/", methods=["GET", ])
 @planet_blueprint.route("/v1/planet/<planetid>/", methods=["GET", ])
-# @app.cache.cached(timeout=300)
+@cache.cached(timeout=300)
 def get_planet_by_id(planetid):
     logging.debug("[GET] /planet/%s" % planetid)
     resp = build_planet_by_id(planetid)
