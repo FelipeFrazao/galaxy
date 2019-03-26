@@ -1,18 +1,20 @@
 import logging
 import json
 
-from flask import request
+from flask import request, Blueprint
 
-from app import app
 from galaxy.builders.planet_builder import build_planet_by_id, build_insert_planet
 from galaxy.builders.planet_builder import build_planet_by_name
 from galaxy.builders.planet_builder import build_planet_delete
 from galaxy.builders.planet_builder import build_planet_list
+from galaxy.services.cache_service import cache
+
+planet_blueprint = Blueprint("planet_blueprint", __name__)
 
 
-@app.route("/v1/planet/", methods=["GET"])
-@app.route("/planet", methods=["GET"])
-@app.cache.cached(timeout=300)
+@planet_blueprint.route("/v1/planet/", methods=["GET", ])
+@planet_blueprint.route("/planet", methods=["GET", ])
+@cache.cached(timeout=300)
 def get_planet_list():
     name = request.args.get("name")
     if name is not None:
@@ -24,25 +26,25 @@ def get_planet_list():
     return resp
 
 
-@app.route("/planet/<planetid>/")
-@app.route("/v1/planet/<planetid>/")
-@app.cache.cached(timeout=300)
+@planet_blueprint.route("/planet/<planetid>/", methods=["GET", ])
+@planet_blueprint.route("/v1/planet/<planetid>/", methods=["GET", ])
+@cache.cached(timeout=300)
 def get_planet_by_id(planetid):
     logging.debug("[GET] /planet/%s" % planetid)
     resp = build_planet_by_id(planetid)
     return resp
 
 
-@app.route("/planet/<planetid>/delete", methods=["DELETE"])
-@app.route("/v1/planet/<planetid>/delete", methods=["DELETE"])
+@planet_blueprint.route("/planet/<planetid>/", methods=["DELETE"])
+@planet_blueprint.route("/v1/planet/<planetid>/", methods=["DELETE"])
 def delete_planet(planetid):
     logging.debug("[DELETE] /planet/%s" % planetid)
     resp = build_planet_delete(planetid)
     return resp
 
 
-@app.route("/planet/add", methods=["POST"])
-@app.route("/v1/planet/add", methods=["POST"])
+@planet_blueprint.route("/planet/", methods=["POST"])
+@planet_blueprint.route("/v1/planet/", methods=["POST"])
 def insert_planet():
     planet = request.json
     planet = json.dumps(planet)
