@@ -1,5 +1,3 @@
 #!/bin/bash
 
-python reset_db.py
-
-exec python run.py
+flask run --host=0.0.0.0 --port=5005 --no-debugger --no-reload
