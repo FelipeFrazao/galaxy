@@ -4,6 +4,7 @@ import os
 import requests
 
 # from app import app
+from galaxy.services.cache_service import cache
 
 
 class SwApiService(object):
@@ -17,7 +18,7 @@ class SwApiService(object):
             return planet["results"][0]
         return {}
 
-    # @cache.cached(timeout=300, )
+    @cache.cached(timeout=300)
     def execute_request(self, path: str):
         url = "%s%s" % (self.swapi_host, path)
         logging.info("[SWAPI_SERVICE] - Execute: %s" % url)
