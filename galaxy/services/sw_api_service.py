@@ -2,8 +2,6 @@ import logging
 import os
 
 import requests
-
-# from app import app
 from galaxy.services.cache_service import cache
 
 
