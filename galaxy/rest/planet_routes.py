@@ -1,6 +1,7 @@
 import logging
 import json
 
+from flask import jsonify
 from flask import request, Blueprint
 
 from galaxy.builders.planet_builder import build_planet_by_id, build_insert_planet
@@ -20,10 +21,10 @@ def get_planet_list():
     if name is not None:
         logging.debug("[GET] /planet/?name=%s" % name)
         resp = build_planet_by_name(name)
-        return resp
+        return jsonify(resp)
     logging.debug("[GET] /planet/")
     resp = build_planet_list()
-    return resp
+    return jsonify(resp)
 
 
 @planet_blueprint.route("/planet/<planetid>/", methods=["GET", ])
@@ -32,7 +33,7 @@ def get_planet_list():
 def get_planet_by_id(planetid):
     logging.debug("[GET] /planet/%s" % planetid)
     resp = build_planet_by_id(planetid)
-    return resp
+    return jsonify(resp)
 
 
 @planet_blueprint.route("/planet/<planetid>/", methods=["DELETE"])
@@ -40,7 +41,7 @@ def get_planet_by_id(planetid):
 def delete_planet(planetid):
     logging.debug("[DELETE] /planet/%s" % planetid)
     resp = build_planet_delete(planetid)
-    return resp
+    return jsonify(resp)
 
 
 @planet_blueprint.route("/planet/", methods=["POST"])
@@ -50,4 +51,6 @@ def insert_planet():
     planet = json.dumps(planet)
     planet_dict = json.loads(planet)
     resp = build_insert_planet(planet_dict)
-    return resp
+    if resp == 400:
+        return jsonify(resp), 400
+    return jsonify(resp)

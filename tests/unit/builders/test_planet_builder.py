@@ -1,7 +1,7 @@
+from unittest import TestCase
 from unittest.mock import patch
 
 from app import app
-from flask_testing import TestCase
 from galaxy.builders.planet_builder import build_insert_planet
 from galaxy.builders.planet_builder import build_planet_by_id
 from galaxy.builders.planet_builder import build_planet_by_name
@@ -129,9 +129,6 @@ planet_mock_insert_invalid = {
 
 
 class TestUnitPlanetBuilder(TestCase):
-    def create_app(self):
-        app.config["TESTING"] = True
-        return app
 
     @patch.object(PlanetRepository, "get_planet_list", return_value=planet_list_repo_mock)
     @patch.object(SwApiService, "get_planet_info", return_value=sw_api_mock)
