@@ -1,7 +1,5 @@
 import logging
 
-from flask import jsonify
-
 from galaxy.domain.planet import Planet
 from galaxy.repository.planet_repository import PlanetRepository
 from galaxy.services.sw_api_service import SwApiService
@@ -19,7 +17,7 @@ def build_planet_list():
             planet.add_outhers_infos(apparitions=len(films), population=population)
 
     logging.info("[BULDER_PLANET_LIST]: returning planet list json")
-    return jsonify([planet.to_dict() for planet in planet_list])
+    return [planet.to_dict() for planet in planet_list]
 
 
 def build_planet_by_id(id: str):
@@ -32,10 +30,10 @@ def build_planet_by_id(id: str):
         planet.add_outhers_infos(apparitions=len(films), population=population)
         planet = planet.to_dict()
         logging.info("[BULDER_PLANET_BY_ID]: returning planet %s json", id)
-        return jsonify(planet)
+        return planet
     else:
         logging.info("[BULDER_PLANET_BY_ID]: Planet %s not found" % id)
-        return jsonify({"message": "Planeta não encontrado"}), 204
+        return 404
 
 
 def build_planet_by_name(name: str):
@@ -50,7 +48,7 @@ def build_planet_by_name(name: str):
             planet.add_outhers_infos(apparitions=len(films), population=population)
 
     logging.info("[BULDER_PLANET_BY_NAME]: returning planet by name list json")
-    return jsonify([planet.to_dict() for planet in planet_list])
+    return [planet.to_dict() for planet in planet_list]
 
 
 def build_planet_delete(id: str):
@@ -59,10 +57,10 @@ def build_planet_delete(id: str):
     if delete_count == 1:
         logging.info("[BUILDER_DELETE_PLANET]: Planet %s deleted", id)
         resp = {"message": "Deletado com sucesso"}
-        return jsonify(resp)
+        return resp
     logging.info("[BUILDER_DELETE_PLANET]: Planet %s not found", id)
     resp = {"message": "Planeta não encontrado"}
-    return jsonify(resp), 204
+    return resp
 
 
 def build_insert_planet(planet: dict):
@@ -75,16 +73,15 @@ def build_insert_planet(planet: dict):
             logging.info("[BUILDER_INSERT_PLANET]: Planet %s inserted" % inserted_id)
             message = "Planeta criado com sucesso id: %s" % inserted_id
             resp = {"message": message}
-            return jsonify(resp), 201
+            return resp
     logging.info("[BUILDER_INSERT_PLANET]: Planet missing required params")
-    resp = {"message": "Planeta faltando parametros obrigatorios"}
-    return jsonify(resp), 400
+    return 400
 
 
 def get_all_data_to_build_planet(planet: Planet):
     if planet.apparitions is None or planet.population is None:
         planet_result = SwApiService().get_planet_info(planet.name)
-        films = planet_result["films"]
+        films = planet_result.get("films", None)
 
         try:
             population = int(planet_result["population"])

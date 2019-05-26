@@ -56,7 +56,7 @@ class TestUnitPlanetRoutes(TestCase):
         """
             Unit: Route: Planet: Test method in route /planets/
         """
-        mock_builder.return_value = jsonify(self.list_planet)
+        mock_builder.return_value = self.list_planet
 
         planets_expec = get_planet_list()
-        assert planets_expec, jsonify(self.list_planet)
+        assert planets_expec, self.list_planet

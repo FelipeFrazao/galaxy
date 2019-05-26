@@ -1,4 +1,8 @@
-FROM python:3.7
+# Image
+FROM python:3.7-alpine
+
+# Installing necessary components
+RUN apk add musl-dev gcc tzdata bash
 LABEL maintainer "felipe.sfrazao@outlook.com"
 ENV PYTHONUNBUFFERED 1
 
